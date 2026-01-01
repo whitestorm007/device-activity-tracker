@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@whiskeysockets/baileys": "^7.0.0-rc.9",
+    "better-sqlite3": "^12.5.0",
     "cors": "^2.8.5",
     "express": "^5.0.1",
     "pdf-parse": "^1.1.1",
@@ -45,6 +46,7 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/qrcode-terminal": "^0.12.2",

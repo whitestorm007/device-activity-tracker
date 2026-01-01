@@ -16,12 +16,26 @@ import { pino } from 'pino';
 import { Boom } from '@hapi/boom';
 import { WhatsAppTracker, ProbeMethod } from './tracker.js';
 import { SignalTracker, getSignalAccounts, checkSignalNumber } from './signal-tracker.js';
+import { DatabaseManager } from './db.js';
 
 // Configuration
 const SIGNAL_API_URL = process.env.SIGNAL_API_URL || 'http://localhost:8080';
 
 const app = express();
 app.use(cors());
+
+// [NEW] History API Endpoint
+app.get('/api/history/:jid', (req, res) => {
+    try {
+        const jid = req.params.jid;
+        const db = DatabaseManager.getInstance();
+        const history = db.getHistory(jid);
+        res.json(history);
+    } catch (err) {
+        console.error('History API Error:', err);
+        res.status(500).json({ error: 'Failed to fetch history' });
+    }
+});
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
